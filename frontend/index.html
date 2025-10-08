@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alexandrian Tools Shop</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas id="starfield"></canvas>
+    <header class="hero">
+      <div class="hero__overlay"></div>
+      <div class="hero__content">
+        <h1>Alexandrian Tools Shop</h1>
+        <p class="tagline">Elite automation, hosting, and digital services for power users.</p>
+        <button id="cta" class="button button--primary">Explore Arsenal</button>
+      </div>
+      <nav class="top-nav">
+        <div class="logo">ATS</div>
+        <ul class="nav-links">
+          <li><a href="#products">Products</a></li>
+          <li><a href="#account">Account</a></li>
+          <li><a href="#admin">Admin</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="status" class="status-bar">
+        <div class="status-bar__indicator">
+          <span class="pulse"></span>
+          <span class="status-text">Initializing secure uplink...</span>
+        </div>
+        <div class="status-bar__user" id="status-user"></div>
+      </section>
+
+      <section id="products" class="panel panel--products">
+        <div class="panel__header">
+          <h2>Arsenal</h2>
+          <div class="panel__actions">
+            <input id="product-search" type="search" placeholder="Search modules" />
+            <button id="refresh-products" class="button button--ghost">Refresh</button>
+          </div>
+        </div>
+        <div id="product-grid" class="product-grid"></div>
+      </section>
+
+      <section id="account" class="panel panel--account">
+        <div class="panel__header">
+          <h2>Command Console</h2>
+          <div class="panel__tabs">
+            <button data-tab="login" class="tab-button active">Login</button>
+            <button data-tab="register" class="tab-button">Register</button>
+            <button data-tab="orders" class="tab-button">Orders</button>
+          </div>
+        </div>
+        <div class="panel__content">
+          <div id="tab-login" class="tab active">
+            <form id="login-form" class="form">
+              <label>
+                <span>Username</span>
+                <input type="text" name="username" required />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" name="password" required />
+              </label>
+              <button class="button button--primary" type="submit">Login</button>
+            </form>
+          </div>
+          <div id="tab-register" class="tab">
+            <form id="register-form" class="form">
+              <label>
+                <span>Username</span>
+                <input type="text" name="username" required />
+              </label>
+              <label>
+                <span>Password</span>
+                <input type="password" name="password" required />
+              </label>
+              <button class="button button--primary" type="submit">Create Account</button>
+            </form>
+          </div>
+          <div id="tab-orders" class="tab">
+            <div class="orders" id="orders-list">
+              <p class="muted">Authenticate to view your automation history.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="admin" class="panel panel--admin hidden">
+        <div class="panel__header">
+          <h2>Owner Control Deck</h2>
+        </div>
+        <div class="panel__content">
+          <form id="product-form" class="form form--inline">
+            <input type="text" name="name" placeholder="Module name" required />
+            <input type="text" name="description" placeholder="Description" />
+            <input type="number" step="0.01" name="price" placeholder="Price" required />
+            <input type="url" name="imageUrl" placeholder="Image URL" />
+            <button class="button button--neon" type="submit">Deploy Product</button>
+          </form>
+          <div id="admin-products" class="admin-products"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <strong>Domain Ready:</strong> Configure reverse proxies and SSL using the deployment guide.
+      </div>
+      <div>
+        <strong>Pterodactyl Integrations:</strong> Python automation scripts ready for server orchestration.
+      </div>
+      <div class="footer__credits">© <span id="year"></span> Alexandrian Tools Shop</div>
+    </footer>
+
+    <template id="product-card-template">
+      <article class="product-card">
+        <div class="product-card__glow"></div>
+        <div class="product-card__media">
+          <img alt="Product" />
+        </div>
+        <div class="product-card__body">
+          <h3></h3>
+          <p class="description"></p>
+          <div class="product-card__meta">
+            <span class="price"></span>
+            <div class="actions">
+              <button class="button button--ghost buy-stripe">Stripe</button>
+              <button class="button button--ghost buy-paypal">PayPal</button>
+            </div>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <template id="admin-item-template">
+      <div class="admin-item">
+        <div class="admin-item__info">
+          <h4></h4>
+          <span class="price"></span>
+        </div>
+        <button class="button button--danger">Remove</button>
+      </div>
+    </template>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
