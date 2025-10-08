@@ -1,0 +1,7 @@
+node_modules/
+.env
+backend/database.sqlite
+backend/.env
+python/.env
+__pycache__/
+.DS_Store
