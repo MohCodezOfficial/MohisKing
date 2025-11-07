@@ -9,10 +9,11 @@ echo "Installing dependencies..."
 sudo apt install -y software-properties-common apt-transport-https wget perl gnupg2
 
 echo "Downloading Webmin GPG key..."
-wget -qO- https://download.webmin.com/jcameron-key.asc | gpg --dearmor | sudo tee /usr/share/keyrings/webmin-archive-keyring.gpg >/dev/null
+wget https://download.webmin.com/jcameron-key.asc
+sudo mv jcameron-key.asc /etc/apt/trusted.gpg.d/webmin.asc
 
 echo "Adding Webmin repository..."
-echo "deb [signed-by=/usr/share/keyrings/webmin-archive-keyring.gpg] https://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
+echo "deb https://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
 
 echo "Updating package list..."
 sudo apt update
