@@ -1,33 +1,16 @@
-#!/bin/bash
+# Download the RSA 4096 key
+wget https://webmin.com/jcameron-key.asc
 
-set -e
+# Verify the key fingerprint (optional but recommended)
+gpg --show-keys jcameron-key.asc
 
-echo "Updating system packages..."
-sudo apt update && sudo apt upgrade -y
+# Convert and place in trusted keys
+gpg --dearmor jcameron-key.asc
+sudo mv jcameron-key.gpg /usr/share/keyrings/webmin-archive-keyring.gpg
 
-echo "Installing dependencies..."
-sudo apt install -y software-properties-common apt-transport-https wget perl gnupg2
+# Add repository using signed-by
+echo "deb [signed-by=/usr/share/keyrings/webmin-archive-keyring.gpg] https://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
 
-echo "Downloading Webmin GPG key..."
-wget https://download.webmin.com/jcameron-key.asc
-sudo mv jcameron-key.asc /etc/apt/trusted.gpg.d/webmin.asc
-
-echo "Adding Webmin repository..."
-echo "deb https://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
-
-echo "Updating package list..."
+# Update and install
 sudo apt update
-
-echo "Installing Webmin..."
-sudo apt install -y webmin
-
-echo "Allowing Webmin through UFW firewall..."
-sudo ufw allow 10000/tcp
-sudo ufw reload
-
-echo "Starting Webmin service..."
-sudo systemctl enable webmin
-sudo systemctl start webmin
-
-echo "Webmin installation completed!"
-echo "Access Webmin at: https://YOUR_SERVER_IP:10000"
+sudo apt install webmin -y
